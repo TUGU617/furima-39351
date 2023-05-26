@@ -8,7 +8,8 @@
 | mail               | string | null: false, unique: true |
 | encrypted_password | string | null: false               |
 | name               | string | null: false               |
-| dare_of_birth      | string | null: false               |
+| name_kana          | string | null: false               |
+| dare_of_birth      | date   | null: false               |
 
 ### Association
 
@@ -20,16 +21,15 @@
 
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
-| product_name       | text       | null: false                    |
+| product_name       | type       | null: false                    |
 | explanation        | text       | null: false                    |
-| category           | string     | null: false                    |
-| situation          | string     | null: false                    |
-| delivery_charge    | string     | null: false                    |
-| sender             | string     | null: false                    |
-| date_of_shipment   | string     | null: false                    |
-| price              | string     | null: false                    |
+| category_id        | integer    | null: false                    |
+| situation_id       | integer    | null: false                    |
+| delivery_charge_id | integer    | null: false                    |
+| prefectures_id     | integer    | null: false                    |
+| date_of_shipment_id| integer    | null: false                    |
+| price              | integer    | null: false                    |
 | user               | references | null: false, foreign_key: true |
-| purchase_record    | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -55,7 +55,7 @@
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
 | post_code          | string     | null: false                    |
-| prefectures        | string     | null: false                    |
+| prefectures_id     | integer    | null: false                    |
 | municipalities     | string     | null: false                    |
 | address            | string     | null: false                    |
 | building_name      | string     |                                |
