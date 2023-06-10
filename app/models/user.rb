@@ -8,7 +8,7 @@ class User < ApplicationRecord
   validate :password_complexity
 
   has_many :items
-
+  has_many :purchase_record
   private
 
   def password_complexity

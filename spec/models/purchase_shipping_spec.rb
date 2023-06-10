@@ -9,6 +9,7 @@ RSpec.describe PurchaseShipping, type: :model do
 
     context '内容に問題がない場合' do
       it 'すべての値が正しく入力されていれば保存できること' do
+        expect(@order).to be_valid
       end
 
       it '建物名は任意であること' do
@@ -65,12 +66,7 @@ RSpec.describe PurchaseShipping, type: :model do
         expect(@order.errors.full_messages).to include("Number is invalid")
       end
 
-      it '購入情報が紐付いていなければ保存できない' do
-        @order.purchase_record_id = nil
-        @order.valid?
-        expect(@order.errors.full_messages).to include("Purchase record can't be blank")
-      end
-
+      
       it 'userが紐付いていなければ保存できない' do
         @order.user_id = nil
         @order.valid?
@@ -82,6 +78,13 @@ RSpec.describe PurchaseShipping, type: :model do
         @order.valid?
         expect(@order.errors.full_messages).to include("Item can't be blank")
       end
+
+      it "tokenが空では登録できないこと" do
+        @order.token = nil
+        @order.valid?
+        expect(@order.errors.full_messages).to include("Token can't be blank")
+      end
+
     end
   end
 end
