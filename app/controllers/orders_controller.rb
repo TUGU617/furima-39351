@@ -4,7 +4,6 @@ class OrdersController < ApplicationController
 
   def index
     @item = Item.find(params[:item_id])
-<<<<<<< Updated upstream
     @purchase_shipping = PurchaseShipping.new
     if @item.purchase_record.present? && current_user != @item.user 
       redirect_to root_path
@@ -37,28 +36,4 @@ class OrdersController < ApplicationController
   def purchase_params
     params.require(:purchase_shipping).permit(:post_code, :prefecture_id, :municipalities, :address, :building_name, :number).merge(user_id: current_user.id, item_id: @item.id, token: params[:token])
   end
-=======
-  end
-
-  def new
-    @purchase_record_shipping_address = PurchaseRecordShippingAddress.new
-  end
-
-  def create
-    @purchase_record_shipping_address = PurchaseRecordShippingAddress.new(purchase_record_params)
-    if @purchase_record_shipping_address.valid?
-      @purchase_record_shipping_address.save
-      redirect_to root_path
-    else
-      render :new
-    end
-  end
-
-  private
-
-  def purchase_record_params
-    params.require(:purchase_record).permit(:item_id, :post_code, :prefecture_id, :municipalities, :address, :building_name, :number).merge(user_id: current_user.id)
-  end
-
->>>>>>> Stashed changes
 end
