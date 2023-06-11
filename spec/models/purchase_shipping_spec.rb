@@ -4,7 +4,9 @@ require 'rails_helper'
 RSpec.describe PurchaseShipping, type: :model do
   describe '配送先情報' do
     before do
-      @order = FactoryBot.build(:purchase_shipping)
+      @user = FactoryBot.create(:user)
+      @item = FactoryBot.create(:item)
+      @order = FactoryBot.build(:purchase_shipping, user_id:@user.id, item_id:@item.id)
     end
 
     context '内容に問題がない場合' do
@@ -54,19 +56,36 @@ RSpec.describe PurchaseShipping, type: :model do
         expect(@order.errors.full_messages).to include("Address can't be blank")
       end
 
+      it '建物名は任意であること' do
+        @order.building_name = ""
+        @order.valid?
+        expect(@order.errors.full_messages).to include()
+      end
+
       it '電話番号が空だと保存できない' do
         @order.number = ""
         @order.valid?
         expect(@order.errors.full_messages).to include("Number can't be blank")
       end
 
-      it '電話番号は、10桁以上11桁以内の半角数値のみ保存可能なこと' do
-        @order.number = "123456789012"
+      it '電話番号は、9桁以下では購入できなこと' do
+        @order.number = "12345678"
         @order.valid?
         expect(@order.errors.full_messages).to include("Number is invalid")
       end
 
+      it '電話番号は、12桁以上では購入できなこと' do
+        @order.number = "1234567891234"
+        @order.valid?
+        expect(@order.errors.full_messages).to include("Number is invalid")
+      end
       
+      it '電話番号は、半角数字以外が含まれている場合は購入できなこと' do
+        @order.number = "1234567abcd"
+        @order.valid?
+        expect(@order.errors.full_messages).to include("Number is invalid")
+      end
+
       it 'userが紐付いていなければ保存できない' do
         @order.user_id = nil
         @order.valid?
@@ -74,13 +93,13 @@ RSpec.describe PurchaseShipping, type: :model do
       end
 
       it 'itemが紐付いていなければ保存できない' do
-        @order.item_id = nil
+        @order.item_id = ''
         @order.valid?
         expect(@order.errors.full_messages).to include("Item can't be blank")
       end
 
       it "tokenが空では登録できないこと" do
-        @order.token = nil
+        @order.token = ''
         @order.valid?
         expect(@order.errors.full_messages).to include("Token can't be blank")
       end

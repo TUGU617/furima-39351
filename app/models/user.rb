@@ -7,8 +7,8 @@ class User < ApplicationRecord
   validates :date_of_birth, presence: true
   validate :password_complexity
 
-  has_many :items
-  has_many :purchase_record
+  has_many :items, dependent: :destroy
+  has_many :purchase_records, dependent: :destroy
   private
 
   def password_complexity

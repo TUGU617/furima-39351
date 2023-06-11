@@ -1,9 +1,9 @@
 require 'payjp'
 class OrdersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_order, only: [:index, :create]
 
   def index
-    @item = Item.find(params[:item_id])
     @purchase_shipping = PurchaseShipping.new
     if @item.purchase_record.present? && current_user != @item.user 
       redirect_to root_path
@@ -15,7 +15,6 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @purchase_shipping = PurchaseShipping.new(purchase_params)
     if @purchase_shipping.valid?
       Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  # 自身のPAY.JPテスト秘密鍵を記述しましょう
@@ -35,5 +34,9 @@ class OrdersController < ApplicationController
 
   def purchase_params
     params.require(:purchase_shipping).permit(:post_code, :prefecture_id, :municipalities, :address, :building_name, :number).merge(user_id: current_user.id, item_id: @item.id, token: params[:token])
+  end
+
+  def set_order
+    @item = Item.find(params[:item_id])
   end
 end

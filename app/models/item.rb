@@ -17,6 +17,7 @@ class Item < ApplicationRecord
   has_one_attached :image
   has_one :purchase_record
   belongs_to :user
+  has_one :shipping_address,through: :purchase_record
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
   belongs_to :Situation
