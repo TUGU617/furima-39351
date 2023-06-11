@@ -24,10 +24,12 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if user_signed_in? && current_user == @item.user
-      render :edit
-    else
+    if @item.purchase_record.present? && current_user != @item.user 
       redirect_to root_path
+    elsif user_signed_in? && current_user == @item.user
+      redirect_to root_path
+    else
+      render :edit
     end
   end
 
