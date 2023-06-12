@@ -27,9 +27,9 @@ class ItemsController < ApplicationController
     if @item.purchase_record.present? && current_user != @item.user 
       redirect_to root_path
     elsif user_signed_in? && current_user == @item.user
-      redirect_to root_path
-    else
       render :edit
+    else
+      redirect_to root_path
     end
   end
 
