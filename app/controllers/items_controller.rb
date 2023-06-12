@@ -26,8 +26,12 @@ class ItemsController < ApplicationController
   def edit
     if @item.purchase_record.present? && current_user != @item.user 
       redirect_to root_path
-    elsif user_signed_in? && current_user == @item.user
-      render :edit
+    elsif user_signed_in? && current_user == @item.user 
+      if @item.purchase_record.present?
+        redirect_to root_path
+      else
+        render :edit
+      end
     else
       redirect_to root_path
     end
