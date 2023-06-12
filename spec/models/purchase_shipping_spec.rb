@@ -14,8 +14,10 @@ RSpec.describe PurchaseShipping, type: :model do
         expect(@order).to be_valid
       end
 
-      it '建物名は任意であること' do
-        expect(@order).to be_valid
+      it '建物名は空欄でも保存できること' do
+        @order.building_name = ""
+        @order.valid?
+        expect(@order.errors.full_messages).to include()
       end
     end
 
@@ -54,12 +56,6 @@ RSpec.describe PurchaseShipping, type: :model do
         @order.address = ""
         @order.valid?
         expect(@order.errors.full_messages).to include("Address can't be blank")
-      end
-
-      it '建物名は任意であること' do
-        @order.building_name = ""
-        @order.valid?
-        expect(@order.errors.full_messages).to include()
       end
 
       it '電話番号が空だと保存できない' do

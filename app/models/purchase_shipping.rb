@@ -16,10 +16,7 @@ class PurchaseShipping
   
 
   def save
-    purchase_record = PurchaseRecord.new(user_id: user_id, item_id: item_id)
-    purchase_record.save
-  
-    shipping_address = ShippingAddress.new(post_code: post_code, prefecture_id: prefecture_id, municipalities: municipalities, address: address, building_name: building_name, number: number, purchase_record_id: purchase_record.id)
-    shipping_address.save
+    purchase_record = PurchaseRecord.create(user_id: user_id, item_id: item_id)
+    shipping_address = ShippingAddress.create(post_code: post_code, prefecture_id: prefecture_id, municipalities: municipalities, address: address, building_name: building_name, number: number, purchase_record_id: purchase_record.id)
   end
 end

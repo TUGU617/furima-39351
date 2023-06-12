@@ -24,7 +24,7 @@ class OrdersController < ApplicationController
         currency: 'jpy'                 # 通貨の種類（日本円）
       )
       @purchase_shipping.save
-      redirect_to items_path
+      redirect_to root_path
     else
       render :index
     end
