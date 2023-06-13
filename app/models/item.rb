@@ -2,11 +2,11 @@ class Item < ApplicationRecord
   validates :image, presence: true
   validates :product_name, presence: true
   validates :explanation, presence: true
-  validates :category_id, presence: true, numericality: { other_than: 1 , message: "can't be blank"} 
-  validates :situation_id, presence: true, numericality: { other_than: 1 , message: "can't be blank"}
-  validates :delivery_charge_id, presence: true, numericality: { other_than: 1 , message: "can't be blank"}
-  validates :prefecture_id, presence: true, numericality: { other_than: 1 , message: "can't be blank"}
-  validates :date_of_shipment_id, presence: true, numericality: { other_than: 1 , message: "can't be blank"}
+  validates :category_id, presence: true, numericality: { other_than: 1 , message: "を入力してください"} 
+  validates :situation_id, presence: true, numericality: { other_than: 1 , message: "を入力してください"}
+  validates :delivery_charge_id, presence: true, numericality: { other_than: 1 , message: "を入力してください"}
+  validates :prefecture_id, presence: true, numericality: { other_than: 1 , message: "を入力してください"}
+  validates :date_of_shipment_id, presence: true, numericality: { other_than: 1 , message: "を入力してください"}
   validates :price,presence: true
   validates :price, format: { with: /\A\d+\z/, message: "半角数値のみ入力してください" }
   validates :price, numericality: {
