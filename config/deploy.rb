@@ -5,7 +5,7 @@ lock '3.17.3'
 set :application, 'furima-39351'
 
 # どのリポジトリからアプリをpullするかを指定する
-set :repo_url,  'git@github.com:TUGU617/MariaDB.git'
+set :repo_url,  'git@github.com:TUGU617/furima-39351.git'
 
 # バージョンが変わっても共通で参照するディレクトリを指定
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
